@@ -1,3 +1,4 @@
+import "./Navbar.css"
 import logo from "../assets/img/logo.png"
 
 

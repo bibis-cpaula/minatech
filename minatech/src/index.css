@@ -1,0 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Ancizar+Serif:ital,wght@0,300..900;1,300..900&family=Audiowide&display=swap");
+
+
+@font-face {
+  font-family: '42dotsans';
+  src: url('../../public/fonts/42dotsans.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
