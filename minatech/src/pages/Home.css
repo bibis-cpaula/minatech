@@ -13,11 +13,6 @@ body{
     overflow-x: hidden;
 }
 
-#teste123{
-    height: 400px;
-}
-
-
 .page-container{
     min-height: 100vh;
     display: flex;
@@ -31,18 +26,20 @@ body{
 /* SECTION INICIAL */
 
 #section-inicial{
-    background-image: url("../assets/img/bodyBg.png");
+    background-image: url("../assets/img/home/bodyBg.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    min-height: 900px;
+    min-height: 850px;
     position: relative;
 }
 
 #manchete{
     background-color: transparent;
     margin: 70px;
-    font-family: "Ancizar Serif", serif;
+    font-family: "Ancizar";
+    margin-left: 150px;
+    margin-top: 110px;
 }
 
 #manchete-opener{
@@ -62,16 +59,16 @@ body{
 
 #card-flutuante{
     background-color: #ededed;
-    width: 1000px;
-    margin-left: 115px;
+    width: 950px;
+    margin-left: 150px;
     overflow: visible;
     position: absolute;
-    bottom: -250px;
+    bottom: -180px;
     z-index: 2;
     box-shadow: 0px 0px 100px 0px #00000061;
     border-left: 10px solid #6E0000;
     border-radius: 0 10px 10px 0;
-    padding: 40px;
+    padding: 0;
 }
 
 /* SECTION ROSA */
@@ -80,7 +77,7 @@ body{
     position: relative;
     isolation: isolate;
     background-color: #ffc6cd;
-    padding: 120px 0;
+    padding: 10px;
     z-index: 1;
     overflow: hidden;
 }
@@ -145,9 +142,44 @@ body{
     font-family: '42dotsans';
     text-align: justify;
     color: #000;
-    margin: 72px
+    margin-left: 74px;
+    margin-bottom: 40px;
+}
+
+#card-flutuante img{
+    height: 350px;
+    margin: 20px;
 }
 
 .botoes-card-flutuante{
     margin-left: 68px;
+    font-size: 23px;
+}
+
+.botoes-card-flutuante button:hover{
+    background: #910000;
+    transform: translateY(-1px);
+}
+
+#section-rosa-textos{
+    height: 350px;
+    font-family: "Ancizar";
+    font-size: 50px;
+    color: #971E1E;
+}
+
+#section-rosa-texto1{
+    margin-top: 200px;
+    margin-left: 35px;
+}
+
+#section-rosa-texto2{
+    font-size: 150px;
+    color: #FF0040;
+    line-height: 70px;
+    margin-left: 140px;
+}
+
+#section-rosa-texto3{
+    margin-left: 155px;
 }

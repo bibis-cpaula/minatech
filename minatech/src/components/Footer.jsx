@@ -6,7 +6,7 @@ export default function Footer() {
             <div className="container-fluid">
                 <div className="row align-items-center">
 
-                    {/* esquerda */}
+                    
                     <div className="col-lg-9">
                         <h2 className="footer-title">Contato</h2>
 
@@ -58,7 +58,7 @@ export default function Footer() {
                         </div>
                     </div>
 
-                    {/* direita */}
+                    
                     <div className="col-lg-3 d-flex justify-content-center">
                         <div className="instagram-card">
 

@@ -2,7 +2,7 @@ import "./Home.css"
 import Navbar from "../components/Navbar"
 import Footer from "../components/Footer"
 import ActionButton from "../components/ActionButton"
-import sidewaysLogo from '../assets/img/fadedName.png'
+import sidewaysLogo from '../assets/img/home/fadedName.png'
 
 export default function Home() {
     return (
@@ -38,14 +38,18 @@ export default function Home() {
                         </div>
 
                         <div className="col-auto">
-                            <img src={sidewaysLogo} alt="Logo" />
+                            <img src={sidewaysLogo} alt="logo" />
                         </div>
                     </div>
                 </div>
             </section>
             <section id="section-rosa">
 
-                <div id="teste123"></div>
+                <div id="section-rosa-textos">
+                    <p id="section-rosa-texto1">mais de</p>
+                    <p id="section-rosa-texto2">150</p>
+                    <p id="section-rosa-texto3">meninas impactadas na <br /> grande Florianópolis!</p>
+                </div>
             </section>
 
             <Footer />

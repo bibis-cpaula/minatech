@@ -1,5 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Ancizar+Serif:ital,wght@0,300..900;1,300..900&family=Audiowide&display=swap");
-
+@font-face {
+  font-family: 'Ancizar';
+  src: url('../../public/fonts/AncizarSerif.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 
 @font-face {
   font-family: '42dotsans';
