@@ -1,5 +1,6 @@
 import "./Navbar.css"
 import logo from "../assets/img/logo.png"
+import { Link } from 'react-router-dom'
 
 
 export default function Navbar(){
@@ -54,9 +55,7 @@ export default function Navbar(){
               </li>
 
               <li className="nav-item">
-                <a className="nav-link" href="#">
-                  FAQ
-                </a>
+                <Link class="nav-link active" to="/FAQ">FAQ</Link>
               </li>
 
               <li className="nav-item">
