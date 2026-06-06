@@ -1,19 +1,14 @@
-import "./Navbar.css"
-import logo from "../assets/img/logo.png"
-import { Link } from "react-router-dom"
+import "./Navbar.css";
+import logo from "../assets/img/logo.png";
+import { Link } from "react-router-dom";
 
-
-export default function Navbar(){
+export default function Navbar() {
   return (
     <header>
       <nav className="navbar navbar-expand-lg custom-navbar">
         <div className="container-fluid">
           <a className="navbar-brand" href="#">
-            <img
-              src={logo}
-              alt="MinaTech"
-              id="logo"
-            />
+            <img src={logo} alt="MinaTech" id="logo" />
           </a>
 
           <button
@@ -37,7 +32,9 @@ export default function Navbar(){
               </li>
 
               <li className="nav-item">
-                <Link class ="nav-link-active" to="/OSCS">OSCS</Link>
+                <Link className="nav-link" to="/OSCS">
+                  OSCS
+                </Link>
               </li>
 
               <li className="nav-item">
@@ -68,5 +65,5 @@ export default function Navbar(){
         </div>
       </nav>
     </header>
-  )
+  );
 }
