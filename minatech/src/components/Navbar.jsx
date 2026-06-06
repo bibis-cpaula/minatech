@@ -1,20 +1,16 @@
 import "./Navbar.css"
 import logo from "../assets/img/logo.png"
 import { Link } from 'react-router-dom'
+import Programacao from '../pages/Programacao'
 
-
-export default function Navbar(){
+export default function Navbar() {
   return (
     <header>
       <nav className="navbar navbar-expand-lg custom-navbar">
         <div className="container-fluid">
-          <a className="navbar-brand" href="#">
-            <img
-              src={logo}
-              alt="MinaTech"
-              id="logo"
-            />
-          </a>
+          <Link className="navbar-brand" to="/">
+            <img src={logo} alt="MinaTech" id="logo" />
+          </Link>
 
           <button
             className="navbar-toggler"
@@ -37,9 +33,9 @@ export default function Navbar(){
               </li>
 
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <Link className="nav-link" to="/OSCS">
                   OSCS
-                </a>
+                </Link>
               </li>
 
               <li className="nav-item">
@@ -49,9 +45,7 @@ export default function Navbar(){
               </li>
 
               <li className="nav-item">
-                <a className="nav-link" href="#">
-                  Programação
-                </a>
+                <Link class="nav-link" to="/Programacao">Programação</Link>
               </li>
 
               <li className="nav-item">
@@ -68,5 +62,5 @@ export default function Navbar(){
         </div>
       </nav>
     </header>
-  )
+  );
 }
