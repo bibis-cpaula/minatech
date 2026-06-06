@@ -8,9 +8,9 @@ export default function Navbar() {
     <header>
       <nav className="navbar navbar-expand-lg custom-navbar">
         <div className="container-fluid">
-          <a className="navbar-brand" href="#">
+          <Link className="navbar-brand" to="/">
             <img src={logo} alt="MinaTech" id="logo" />
-          </a>
+          </Link>
 
           <button
             className="navbar-toggler"
@@ -45,7 +45,7 @@ export default function Navbar() {
               </li>
 
               <li className="nav-item">
-                <Link class="nav-link-active" to="/Programacao">Programação</Link>
+                <Link class="nav-link" to="/Programacao">Programação</Link>
               </li>
 
               <li className="nav-item">
