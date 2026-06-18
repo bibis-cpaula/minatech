@@ -1,5 +1,49 @@
+/* Plano de Fundo */
 .oscs-page {
     min-height: 100vh;
+}
+
+/* Carrosel */
+.equipe-img{
+    height: 550px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.equipe-texto h2{
+    font-size: 4rem;
+    color: #7f1d1d;
+    font-family: Georgia, serif;
+    margin-bottom: 25px;
+}
+
+.equipe-texto p{
+    font-size: 1.7rem;
+    line-height: 1.4;
+}
+
+.carousel-item{
+    position: relative;
+}
+
+.equipe-info{
+    position: absolute;
+    left: 15px;
+    bottom: 15px;
+}
+
+.nome-card{
+    background: white;
+    padding: 12px 20px;
+    border-radius: 6px;
+    color: #7f1d1d;
+    margin-bottom: 10px;
+}
+
+.cargo-card{
+    background: white;
+    padding: 12px 20px;
+    border-radius: 6px;
 }
 
 /* Blocos OSCS */
