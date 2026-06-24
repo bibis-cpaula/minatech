@@ -1,0 +1,359 @@
+/* ============================================================
+   Página de Inscrição (Formulário) — MinaTech
+   Todas as classes prefixadas com "formulario-" e escopadas para
+   NÃO afetar nenhuma outra página (os .css são globais no bundle).
+   ============================================================ */
+
+.formulario-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f1f1f3;
+}
+
+.formulario-main {
+  flex: 1;
+  padding: 10px 0 60px;
+}
+
+/* ===== Título ===== */
+.formulario-titulo {
+  font-family: "Ancizar", serif;
+  font-size: 2.6rem;
+  font-weight: 600;
+  color: #2b2b2b;
+  line-height: 1.15;
+  margin: 14px 0 34px;
+}
+
+.formulario-titulo span {
+  color: #e23a5e;
+  font-style: italic;
+}
+
+/* ===== Grid ===== */
+.formulario-grid {
+  align-items: stretch; /* a coluna do stepper estica p/ o sticky acompanhar o scroll */
+}
+
+/* ===== Stepper lateral (sticky, ocupa a tela toda + scrollspy) ===== */
+.formulario-stepper {
+  position: sticky;
+  top: 20px;
+  height: calc(100vh - 40px);
+  min-height: 520px;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 36px 22px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+}
+
+.formulario-step {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
+.formulario-step-icon {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #c9c9c9;
+  color: #b0b0b0;
+  background: #fff;
+  z-index: 1;
+  transition: background-color 0.4s ease, border-color 0.4s ease,
+    color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
+}
+
+.formulario-step-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* Etapa já alcançada (atual + anteriores) fica vermelha */
+.formulario-step.is-ativo .formulario-step-icon {
+  background: #6e0000;
+  border-color: #6e0000;
+  color: #fff;
+}
+
+/* Destaque extra na etapa que está sendo preenchida agora */
+.formulario-step.is-atual .formulario-step-icon {
+  transform: scale(1.12);
+  box-shadow: 0 0 0 5px rgba(110, 0, 0, 0.15);
+}
+
+.formulario-step-label {
+  font-size: 1.12rem;
+  font-weight: 600;
+  color: #8a8a8a;
+  line-height: 1.2;
+  transition: color 0.4s ease;
+}
+
+.formulario-step.is-ativo .formulario-step-label {
+  color: #cf2e52;
+}
+
+.formulario-step.is-atual .formulario-step-label {
+  color: #6e0000;
+}
+
+/* Conector vertical — cresce e fica vermelho conforme o progresso */
+.formulario-conector {
+  flex: 1 1 auto;
+  min-height: 26px;
+  width: 3px;
+  margin-left: 22.5px; /* centraliza no eixo do ícone (48px / 2) */
+  background: #d9d9d9;
+  border-radius: 3px;
+  position: relative;
+}
+
+.formulario-conector::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #a40000;
+  border-radius: 3px;
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.5s ease;
+}
+
+.formulario-conector.is-preenchido::after {
+  transform: scaleY(1);
+}
+
+/* ===== Cards ===== */
+.formulario-cards-col {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.formulario-card {
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 26px 30px 30px;
+}
+
+.formulario-section-title {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #e23a5e;
+  margin-bottom: 22px;
+  scroll-margin-top: 120px;
+}
+
+.formulario-section-title::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #f0aebd;
+}
+
+.formulario-section-title--mt {
+  margin-top: 34px;
+}
+
+/* ===== Campos ===== */
+.formulario-field {
+  margin-bottom: 18px;
+}
+
+.formulario-label {
+  display: block;
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: #3a3a3a;
+  margin-bottom: 8px;
+}
+
+.formulario-input {
+  width: 100%;
+  padding: 13px 15px;
+  font-size: 0.95rem;
+  color: #333;
+  background: #fcfcfc;
+  border: 1px solid #e2e2e2;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.formulario-input::placeholder {
+  color: #b8b8b8;
+}
+
+.formulario-input:focus {
+  border-color: #e23a5e;
+  box-shadow: 0 0 0 3px rgba(226, 58, 94, 0.12);
+}
+
+/* Select com seta rosa (caret-down) */
+.formulario-select {
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  padding-right: 38px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23e23a5e'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 12px;
+}
+
+/* Placeholder do select em cinza claro enquanto vazio */
+.formulario-select:has(> option[value=""]:checked) {
+  color: #b8b8b8;
+}
+
+/* ===== Opções (neurodivergência) ===== */
+.formulario-opcoes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.formulario-opcao {
+  padding: 16px;
+  font-size: 0.95rem;
+  color: #6a6a6a;
+  background: #fff;
+  border: 1px solid #e2e2e2;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.formulario-opcao:hover {
+  border-color: #f0aebd;
+}
+
+.formulario-opcao.is-selecionada {
+  border-color: #e23a5e;
+  color: #e23a5e;
+  background: #fff5f7;
+  font-weight: 600;
+}
+
+/* ===== Dispositivos (acesso digital) ===== */
+.formulario-dispositivos {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 12px;
+}
+
+.formulario-dispositivo-row {
+  display: flex;
+  gap: 14px;
+  align-items: stretch;
+}
+
+.formulario-dispositivo {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  padding: 13px 15px;
+  background: #fcfcfc;
+  border: 1px solid #e2e2e2;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: #555;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.formulario-dispositivo input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #e23a5e;
+  cursor: pointer;
+}
+
+.formulario-dispositivo:has(input:checked) {
+  border-color: #e23a5e;
+  color: #e23a5e;
+}
+
+.formulario-qtd {
+  width: 110px;
+  flex-shrink: 0;
+}
+
+/* ===== Botão enviar ===== */
+.formulario-enviar {
+  margin-top: 6px;
+  padding: 16px;
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  background: linear-gradient(90deg, #ff1f5a 0%, #c40000 100%);
+  box-shadow: 0 6px 16px rgba(196, 0, 0, 0.25);
+  transition: filter 0.15s ease, transform 0.15s ease;
+}
+
+.formulario-enviar:hover {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+}
+
+/* ===== Responsivo ===== */
+@media (max-width: 991px) {
+  /* Stepper passa para o topo, em formato horizontal (sem sticky/linha) */
+  .formulario-stepper {
+    position: static;
+    height: auto;
+    min-height: 0;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px 22px;
+    padding: 18px;
+    margin-bottom: 22px;
+  }
+  .formulario-conector {
+    display: none;
+  }
+  .formulario-step.is-atual .formulario-step-icon {
+    transform: none;
+  }
+}
+
+@media (max-width: 575px) {
+  .formulario-titulo {
+    font-size: 1.9rem;
+  }
+  .formulario-opcoes {
+    grid-template-columns: 1fr;
+  }
+  .formulario-card {
+    padding: 20px;
+  }
+  .formulario-dispositivo-row {
+    flex-direction: column;
+  }
+  .formulario-qtd {
+    width: 100%;
+  }
+}

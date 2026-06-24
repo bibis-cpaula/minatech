@@ -1,0 +1,114 @@
+.pix-page {
+  background-color: #ffffff;
+  min-height: 100vh;
+  padding: 2rem 0;
+}
+
+.pix-card {
+  background-color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.pix-container {
+  width: 90%;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  font-family: sans-serif;
+}
+
+.pix-container h2 {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  color: #222;
+}
+
+.destaque {
+  color: #FF465B;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.pix-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.pix-section-title {
+  color: #e91e63;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid #e91e63;
+  padding-bottom: 0.3rem;
+}
+
+.pix-card label {
+  font-size: 0.85rem;
+  color: #333;
+  margin-top: 0.5rem;
+}
+
+.pix-card input {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9rem;
+  color: #999;
+  outline: none;
+}
+
+.pix-card input:focus {
+  border-color: #e91e63;
+}
+
+.pix-label {
+  color: #e91e63;
+  font-weight: bold;
+  margin-top: 0.75rem;
+}
+
+.pix-qr-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 0.5rem 0;
+}
+
+.pix-qr {
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+}
+
+.pix-btn-link {
+     text-align: center;
+  width: 100%;
+  background: none;
+  border: none;
+  color: #FF465B;
+  cursor: pointer;
+  font-size: 0.95rem;
+  text-align: center;
+  text-decoration: underline;
+}
+
+.pix-btn-concluir {
+     display: block;
+  margin: 0.5rem auto 0;
+  width: 30%;
+ background: linear-gradient(to right, #FF004D, #DD6E7C);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.75rem;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: background 0.2s;
+}
+
+.pix-btn-concluir:hover {
+  background-color: #c2185b;
+}
