@@ -38,10 +38,10 @@ export default function Navbar() {
                 </Link>
               </li>
 
-              <li className="nav-item">
-                <a className="nav-link" href="#">
+                  <li className="nav-item">
+                <Link className="nav-link" to="/formulario">
                   Inscrição
-                </a>
+                </Link>
               </li>
 
               <li className="nav-item">
