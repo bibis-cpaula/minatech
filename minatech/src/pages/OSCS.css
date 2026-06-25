@@ -28,6 +28,7 @@
 
 .equipe-info{
     position: absolute;
+    font-size: 1 rem;
     left: 15px;
     bottom: 15px;
 }
