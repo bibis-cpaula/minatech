@@ -1,10 +1,11 @@
+import { Link } from "react-router-dom";
 import './ActionButton.css'
 export default function ActionButton(props){
     return(
         <>
-        <a href={props.href}>
+        <Link to={props.to}>
             <button>{props.text}</button>
-        </a>
+        </Link>
         </>
     )
 }

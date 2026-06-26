@@ -39,8 +39,8 @@ export default function Home() {
                                 também é delas!
                             </p>
                             <div className="d-flex flex-wrap gap-2 gap-md-3 mt-3 botoes-card-flutuante">
-                                <ActionButton text="Participar" />
-                                <ActionButton text="Apoie o Projeto" />
+                                <ActionButton to={"/Formulario"} text="Participar" />
+                                <ActionButton to="" text="Apoie o Projeto" />
                             </div>
                         </div>
                         <div className="col-auto card-flutuante-visual pe-3">
