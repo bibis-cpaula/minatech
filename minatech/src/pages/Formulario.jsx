@@ -2,6 +2,7 @@ import "./Formulario.css"
 import Navbar from "../components/Navbar"
 import Footer from "../components/Footer"
 import { useState, useEffect, useRef, Fragment } from "react"
+import supabase from '../supabase' // Importe o cliente Supabase
 
 // Ícones do stepper (SVG inline)
 const ICONS = {
@@ -27,16 +28,178 @@ const ETAPAS = [
 const OPCOES_NEURO = ["Sim", "Não", "Não sei ao certo", "Prefiro não dizer"]
 
 export default function Formulario() {
-  // Destaque do botão de neurodivergência (envio é placeholder)
+  // Estado para todos os campos do formulário
+  const [formData, setFormData] = useState({
+    nome: '',
+    idade: '',
+    escolaridade: '',
+    telefone: '',
+    email: '',
+    neurodivergente: null,
+    alergias: '',
+    renda_familiar: '',
+    moradores: '',
+    possui_computador: false,
+    qtd_computadores: 0,
+    possui_celular: false,
+    qtd_celulares: 0,
+    nenhum_dispositivo: false,
+  })
+
+  // Estado para loading e mensagens
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [mensagem, setMensagem] = useState({ texto: '', tipo: '' })
   const [neuro, setNeuro] = useState(null)
 
   // Scrollspy: etapa destacada conforme a seção que está em foco
   const [etapaAtiva, setEtapaAtiva] = useState(0)
   const secoesRef = useRef([])
 
+  // Handler para campos de input/select
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target
+    
+    // Para campos do tipo checkbox
+    if (type === 'checkbox') {
+      setFormData(prev => ({
+        ...prev,
+        [name]: checked
+      }))
+      
+      // Se marcar "Nenhum dos acima", desmarca os outros
+      if (name === 'nenhum_dispositivo' && checked) {
+        setFormData(prev => ({
+          ...prev,
+          possui_computador: false,
+          possui_celular: false,
+          qtd_computadores: 0,
+          qtd_celulares: 0
+        }))
+      }
+      
+      // Se marcar computador ou celular, desmarca "Nenhum dos acima"
+      if ((name === 'possui_computador' || name === 'possui_celular') && checked) {
+        setFormData(prev => ({
+          ...prev,
+          nenhum_dispositivo: false
+        }))
+      }
+    } else {
+      setFormData(prev => ({
+        ...prev,
+        [name]: value
+      }))
+    }
+  }
+
+  // Handler para selects de quantidade
+  const handleQuantidadeChange = (tipo, value) => {
+    if (tipo === 'computador') {
+      setFormData(prev => ({
+        ...prev,
+        qtd_computadores: parseInt(value) || 0,
+        possui_computador: true,
+        nenhum_dispositivo: false
+      }))
+    } else if (tipo === 'celular') {
+      setFormData(prev => ({
+        ...prev,
+        qtd_celulares: parseInt(value) || 0,
+        possui_celular: true,
+        nenhum_dispositivo: false
+      }))
+    }
+  }
+
+  // Função para enviar o formulário
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setMensagem({ texto: '', tipo: '' })
+
+    // Validações básicas
+    if (!formData.nome || !formData.email || !formData.telefone) {
+      setMensagem({ 
+        texto: 'Por favor, preencha os campos obrigatórios: Nome, E-mail e Telefone.', 
+        tipo: 'erro' 
+      })
+      setIsSubmitting(false)
+      return
+    }
+
+    try {
+      // Preparar os dados para enviar ao Supabase
+      const dadosParaEnviar = {
+        nome: formData.nome,
+        idade: formData.idade ? parseInt(formData.idade) : null,
+        escolaridade: formData.escolaridade || null,
+        telefone: formData.telefone,
+        email: formData.email,
+        neurodivergente: neuro || null,
+        alergias: formData.alergias || null,
+        renda_familiar: formData.renda_familiar || null,
+        moradores: formData.moradores ? parseInt(formData.moradores) : null,
+        possui_computador: formData.possui_computador,
+        qtd_computadores: formData.qtd_computadores,
+        possui_celular: formData.possui_celular,
+        qtd_celulares: formData.qtd_celulares,
+        nenhum_dispositivo: formData.nenhum_dispositivo,
+      }
+
+      console.log('Enviando dados:', dadosParaEnviar)
+
+      // Inserir no Supabase
+      const { data, error } = await supabase
+        .from('inscricoes')
+        .insert([dadosParaEnviar])
+        .select()
+
+      if (error) {
+        console.error('Erro ao inserir:', error)
+        throw error
+      }
+
+      console.log('Inscrição realizada com sucesso:', data)
+      
+      // Mensagem de sucesso
+      setMensagem({ 
+        texto: '🎉 Inscrição realizada com sucesso! Em breve entraremos em contato.', 
+        tipo: 'sucesso' 
+      })
+      
+      // Resetar o formulário
+      setFormData({
+        nome: '',
+        idade: '',
+        escolaridade: '',
+        telefone: '',
+        email: '',
+        neurodivergente: null,
+        alergias: '',
+        renda_familiar: '',
+        moradores: '',
+        possui_computador: false,
+        qtd_computadores: 0,
+        possui_celular: false,
+        qtd_celulares: 0,
+        nenhum_dispositivo: false,
+      })
+      setNeuro(null)
+      
+    } catch (error) {
+      console.error('Erro detalhado:', error)
+      setMensagem({ 
+        texto: '❌ Erro ao realizar inscrição. Tente novamente ou entre em contato pelo suporte.', 
+        tipo: 'erro' 
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
   useEffect(() => {
     const onScroll = () => {
-      const linha = window.innerHeight * 0.35 // linha de referência (35% da tela)
+      const linha = window.innerHeight * 0.35
       let ativa = 0
       secoesRef.current.forEach((sec, idx) => {
         if (sec && sec.getBoundingClientRect().top <= linha) ativa = idx
@@ -58,7 +221,14 @@ export default function Formulario() {
             Preencha o formulário abaixo para garantir <span>sua vaga.</span>
           </h1>
 
-          <form className="formulario-form" onSubmit={(e) => e.preventDefault()}>
+          {/* Mensagem de status */}
+          {mensagem.texto && (
+            <div className={`formulario-mensagem ${mensagem.tipo}`}>
+              {mensagem.texto}
+            </div>
+          )}
+
+          <form className="formulario-form" onSubmit={handleSubmit}>
             <div className="row formulario-grid">
               {/* ===== STEPPER (sticky + scrollspy) ===== */}
               <aside className="col-lg-3 formulario-stepper-col">
@@ -109,11 +279,15 @@ export default function Formulario() {
                   </h2>
 
                   <div className="formulario-field">
-                    <label className="formulario-label">Nome completo</label>
+                    <label className="formulario-label">Nome completo *</label>
                     <input
                       type="text"
+                      name="nome"
+                      value={formData.nome}
+                      onChange={handleChange}
                       className="formulario-input"
                       placeholder="Digite seu nome completo"
+                      required
                     />
                   </div>
 
@@ -122,20 +296,28 @@ export default function Formulario() {
                       <label className="formulario-label">Idade</label>
                       <input
                         type="number"
+                        name="idade"
+                        value={formData.idade}
+                        onChange={handleChange}
                         className="formulario-input"
                         placeholder="Quantos anos você tem?"
+                        min="0"
+                        max="120"
                       />
                     </div>
                     <div className="col-md-6 formulario-field">
                       <label className="formulario-label">Escolaridade</label>
-                      <select className="formulario-input formulario-select" defaultValue="">
-                        <option value="" disabled>
-                          Selecione
-                        </option>
-                        <option>Ensino fundamental</option>
-                        <option>Ensino médio</option>
-                        <option>Ensino superior</option>
-                        <option>Pós-graduação</option>
+                      <select 
+                        className="formulario-input formulario-select" 
+                        name="escolaridade"
+                        value={formData.escolaridade}
+                        onChange={handleChange}
+                      >
+                        <option value="">Selecione</option>
+                        <option value="Ensino fundamental">Ensino fundamental</option>
+                        <option value="Ensino médio">Ensino médio</option>
+                        <option value="Ensino superior">Ensino superior</option>
+                        <option value="Pós-graduação">Pós-graduação</option>
                       </select>
                     </div>
                   </div>
@@ -148,20 +330,28 @@ export default function Formulario() {
                   </h2>
 
                   <div className="formulario-field">
-                    <label className="formulario-label">Telefone</label>
+                    <label className="formulario-label">Telefone *</label>
                     <input
                       type="tel"
+                      name="telefone"
+                      value={formData.telefone}
+                      onChange={handleChange}
                       className="formulario-input"
                       placeholder="+55 (00) 0000-0000"
+                      required
                     />
                   </div>
 
                   <div className="formulario-field">
-                    <label className="formulario-label">E-mail</label>
+                    <label className="formulario-label">E-mail *</label>
                     <input
                       type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
                       className="formulario-input"
                       placeholder="Seu@gmail.com"
+                      required
                     />
                   </div>
                 </section>
@@ -198,6 +388,9 @@ export default function Formulario() {
                     <label className="formulario-label">Possui alguma alergia?</label>
                     <input
                       type="text"
+                      name="alergias"
+                      value={formData.alergias}
+                      onChange={handleChange}
                       className="formulario-input"
                       placeholder="Ex: amendoim, glúten, nenhuma...."
                     />
@@ -215,15 +408,18 @@ export default function Formulario() {
 
                   <div className="formulario-field">
                     <label className="formulario-label">Faixa salarial familiar</label>
-                    <select className="formulario-input formulario-select" defaultValue="">
-                      <option value="" disabled>
-                        Selecione a faixa
-                      </option>
-                      <option>Até 1 salário mínimo</option>
-                      <option>1 a 2 salários mínimos</option>
-                      <option>2 a 3 salários mínimos</option>
-                      <option>3 a 5 salários mínimos</option>
-                      <option>Acima de 5 salários mínimos</option>
+                    <select 
+                      className="formulario-input formulario-select"
+                      name="renda_familiar"
+                      value={formData.renda_familiar}
+                      onChange={handleChange}
+                    >
+                      <option value="">Selecione a faixa</option>
+                      <option value="Até 1 salário mínimo">Até 1 salário mínimo</option>
+                      <option value="1 a 2 salários mínimos">1 a 2 salários mínimos</option>
+                      <option value="2 a 3 salários mínimos">2 a 3 salários mínimos</option>
+                      <option value="3 a 5 salários mínimos">3 a 5 salários mínimos</option>
+                      <option value="Acima de 5 salários mínimos">Acima de 5 salários mínimos</option>
                     </select>
                   </div>
 
@@ -231,15 +427,18 @@ export default function Formulario() {
                     <label className="formulario-label">
                       Quantas pessoas moram na sua casa?
                     </label>
-                    <select className="formulario-input formulario-select" defaultValue="">
-                      <option value="" disabled>
-                        Selecione
-                      </option>
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5 ou mais</option>
+                    <select 
+                      className="formulario-input formulario-select"
+                      name="moradores"
+                      value={formData.moradores}
+                      onChange={handleChange}
+                    >
+                      <option value="">Selecione</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5 ou mais</option>
                     </select>
                   </div>
                 </section>
@@ -260,51 +459,70 @@ export default function Formulario() {
                   <div className="formulario-dispositivos">
                     <div className="formulario-dispositivo-row">
                       <label className="formulario-dispositivo">
-                        <input type="checkbox" />
+                        <input 
+                          type="checkbox" 
+                          name="possui_computador"
+                          checked={formData.possui_computador}
+                          onChange={handleChange}
+                        />
                         <span>Computador / notebook</span>
                       </label>
                       <select
                         className="formulario-input formulario-select formulario-qtd"
-                        defaultValue=""
+                        value={formData.qtd_computadores || ''}
+                        onChange={(e) => handleQuantidadeChange('computador', e.target.value)}
+                        disabled={!formData.possui_computador}
                       >
-                        <option value="" disabled>
-                          qts
-                        </option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3+</option>
+                        <option value="">qts</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3+</option>
                       </select>
                     </div>
 
                     <div className="formulario-dispositivo-row">
                       <label className="formulario-dispositivo">
-                        <input type="checkbox" />
+                        <input 
+                          type="checkbox"
+                          name="possui_celular"
+                          checked={formData.possui_celular}
+                          onChange={handleChange}
+                        />
                         <span>Celular / Tablet</span>
                       </label>
                       <select
                         className="formulario-input formulario-select formulario-qtd"
-                        defaultValue=""
+                        value={formData.qtd_celulares || ''}
+                        onChange={(e) => handleQuantidadeChange('celular', e.target.value)}
+                        disabled={!formData.possui_celular}
                       >
-                        <option value="" disabled>
-                          qts
-                        </option>
-                        <option>1-2</option>
-                        <option>3-4</option>
-                        <option>5+</option>
+                        <option value="">qts</option>
+                        <option value="1">1-2</option>
+                        <option value="3">3-4</option>
+                        <option value="4">5+</option>
                       </select>
                     </div>
 
                     <div className="formulario-dispositivo-row">
                       <label className="formulario-dispositivo formulario-dispositivo--full">
-                        <input type="checkbox" />
+                        <input 
+                          type="checkbox"
+                          name="nenhum_dispositivo"
+                          checked={formData.nenhum_dispositivo}
+                          onChange={handleChange}
+                        />
                         <span>Nenhum dos acima</span>
                       </label>
                     </div>
                   </div>
                 </section>
 
-                <button type="submit" className="formulario-enviar">
-                  Inscreva-se já
+                <button 
+                  type="submit" 
+                  className="formulario-enviar"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? 'Enviando...' : 'Inscreva-se já'}
                 </button>
               </div>
             </div>
