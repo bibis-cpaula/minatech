@@ -1,6 +1,6 @@
 <div align="center">
 
-# 💜 Minatech
+# Minatech
 
 ### Tecnologia que inspira, conecta e transforma.
 
@@ -10,7 +10,7 @@ Projeto desenvolvido com o objetivo de incentivar e divulgar um programa voltado
 
 ---
 
-## 📖 Sobre o projeto
+## Sobre o projeto
 
 O **Minatech** é uma aplicação web criada para apresentar um programa de incentivo às mulheres na tecnologia.
 
@@ -20,17 +20,17 @@ Além de divulgar o programa, o projeto busca proporcionar uma boa experiência 
 
 ---
 
-## ✨ Funcionalidades
+## Funcionalidades
 
-- 🏠 Página inicial apresentando o programa
-- 👩‍💻 Informações sobre a iniciativa
-- 📱 Layout responsivo
-- 🎨 Interface moderna e intuitiva
-- ⚡ Navegação rápida e simples
+- Página inicial apresentando o programa
+- Informações sobre a iniciativa
+- Layout responsivo
+- Interface moderna e intuitiva
+- Navegação rápida e simples
 
 ---
 
-## 🛠 Tecnologias utilizadas
+## Tecnologias utilizadas
 
 - HTML5
 - CSS3
@@ -41,7 +41,7 @@ Além de divulgar o programa, o projeto busca proporcionar uma boa experiência 
 
 ---
 
-## 🚀 Como executar
+## Como executar
 
 Clone o repositório:
 
@@ -62,7 +62,7 @@ npm run dev
 
 ---
 
-## 🎯 Objetivo
+## Objetivo
 
 Este projeto foi desenvolvido como parte de um trabalho acadêmico, com foco na aplicação dos conhecimentos adquiridos durante o curso de desenvolvimento web.
 
@@ -70,7 +70,7 @@ O principal objetivo é criar uma plataforma que incentive a participação femi
 
 ---
 
-## 👥 Desenvolvedores
+## Desenvolvedores
 
 - João Marques
 - Iara Maia
@@ -79,6 +79,6 @@ O principal objetivo é criar uma plataforma que incentive a participação femi
 
 ---
 
-## 📄 Licença
+## Licença
 
 Este projeto possui finalidade exclusivamente educacional.
